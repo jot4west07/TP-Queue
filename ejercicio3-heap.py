@@ -89,21 +89,21 @@ prioridades = {
 
 # Agregar operaciones iniciales a la cola con sus prioridades
 for operation in operaciones_iniciales:
-    encargado = operation["encargado"]
+    encargado = operation["encargado"] # encargado toma el nombre del encargado  de la mision
     # El 1 en prioridades.get(encargado, 1) asegura que cualquier encargado que no esté en el diccionario prioridades reciba una prioridad de nivel 1, evitando errores y garantizando que todas las operaciones tengan un nivel de prioridad asignado
     priority = prioridades.get(encargado, 1)  # Asigna la prioridad correspondiente, si el general no esta se asigna prioridad 1
-    lista_operaciones.arrive(operation, priority)
+    lista_operaciones.arrive(operation, priority) # llega a la lista_operaciones la operacion y su prioridad
 
 # Función para atender y gestionar operaciones adicionales
 def process_operations(queue):
-    count = 0
+    count = 0 # contador para luego de 5 agregar la operacion de Capitan Phasma, y 6 para Snoke
     while queue.size() > 0:
         count += 1
         # Atender la operación de mayor prioridad
         operation = queue.atention()
         print(f"Atendiendo operación: {operation}")
 
-        # Después de la quinta operación, agregar operación de Capitana Phasma
+        # Después de la quinta operación, agregar operación de Capitan Phasma
         if count == 5:
             new_operation = {
                 "encargado": "Capitán Phasma",
@@ -111,7 +111,8 @@ def process_operations(queue):
                 "hora": "18:00",
                 "stormtroopers": 25
             }
-            queue.arrive(new_operation, prioridades["Capitán Phasma"])
+            # Llega a arrive la nueva operacion y la prioridad con la clave[Capitan Phasma]
+            queue.arrive(new_operation, prioridades["Capitán Phasma"]) 
             print("Agregada operación de Capitán Phasma.")
 
         # Después de la sexta operación, agregar operación de Snoke

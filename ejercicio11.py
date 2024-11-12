@@ -49,18 +49,19 @@ class Queue:
         index = None
         for i, element in enumerate(self.__elements):
             if element["nombre"] == nombre_objetivo:
-                index = i
+                index = i # index toma el valor de i que es el indice actual del personaje
                 break
         if index is not None:
-            self.__elements.insert(index, nuevo_personaje)
+            self.__elements.insert(index, nuevo_personaje)  # insertar nuevo_personaje en el indice
 
     def eliminar_despues_personaje(self, nombre_objetivo):
         # Elimina el personaje que está después de un personaje específico (por nombre)
         index = None
         for i, element in enumerate(self.__elements):
             if element["nombre"] == nombre_objetivo:
-                index = i + 1
+                index = i + 1 # +1 porque es el personaje que esta despues 
                 break
+        # Después de obtener el index, se debe verificar que ese índice sea válido. Es decir, que no esté fuera de los límites de la lista. Si el index es mayor o igual a la longitud de la lista (len(self.__elements)), significa que no hay un "personaje después" de ese índice, porque habrías llegado al final de la lista
         if index is not None and index < len(self.__elements):
             self.__elements.pop(index)
 
@@ -89,10 +90,15 @@ print("Personaje insertado: Ahsoka Tano, planeta: Shili")
 nuevo_personaje = {"nombre": "Ahsoka Tano", "planeta": "Shili"}
 characters_queue.insertar_antes_personaje(nuevo_personaje, "Yoda")
 print([char["nombre"] for char in characters_queue._Queue__elements])  # Mostrar nombres en la cola
+# se usa characters_queue._Queue__elements para acceder a este atributo privado desde fuera de la clase
 
 # Punto d
 print("\nEliminar personaje después de Jar Jar Binks:")
 characters_queue.eliminar_despues_personaje("Jar Jar Binks")
 print([char["nombre"] for char in characters_queue._Queue__elements])  # Mostrar nombres en la cola
 
-# [char["name"] for char in characters_queue._Queue__elements] crea una lista con solo los nombres de los personajes en la cola
+# [char["nombre"] for char in characters_queue._Queue__elements] crea una lista con solo los nombres de los personajes en la cola
+# for char in characters_queue._Queue__elements: Este ciclo for recorre todos los personajes en la lista self.__elements de la cola, donde cada char es un diccionario que representa a un personaje.
+# char["nombre"]: Para cada personaje (char), se obtiene el valor asociado a la clave "nombre"
+# La expresión char["nombre"] extrae los valores de la clave "nombre" de cada uno de esos diccionarios, por lo que la list comprehension generará la lista:
+# ["Luke Skywalker", "Leia Organa", "Han Solo"]
